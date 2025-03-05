@@ -6,8 +6,8 @@ def get_db_connection():
     connection = pymysql.connect(
         host='localhost',          # 온프레미스 환경의 MySQL 서버 호스트
         user='root',               # 사용자 이름
-        password='your_password',  # 비밀번호
-        database='your_database',  # 데이터베이스 이름
+        password='Global!23',  # 비밀번호
+        database='bulletin_board',  # 데이터베이스 이름
         charset='utf8mb4',
         cursorclass=pymysql.cursors.DictCursor
     )
