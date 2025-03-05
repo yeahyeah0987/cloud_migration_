@@ -1,13 +1,14 @@
 from flask import Flask, render_template
+import pymysql
 
-app = Flask(__name__, template_folder='C:\cloud_migration_project\nginx\html\board')
+app = Flask(__name__, template_folder='C:/cloud_migration_project/nginx/html/board')
 
 def get_db_connection():
     connection = pymysql.connect(
-        host='localhost',          # 온프레미스 환경의 MySQL 서버 호스트
-        user='root',               # 사용자 이름
-        password='Global!23',  # 비밀번호
-        database='bulletin_board',  # 데이터베이스 이름
+        host='localhost',
+        user='root',
+        password='Global!23',
+        database='bulletin_board',
         charset='utf8mb4',
         cursorclass=pymysql.cursors.DictCursor
     )
@@ -15,17 +16,13 @@ def get_db_connection():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
-    
-@app.route('/api/posts', methods=['GET'])
-def get_posts():
     connection = get_db_connection()
     try:
         with connection.cursor() as cursor:
-            sql = "SELECT * FROM posts"
+            sql = "SELECT * FROM posts ORDER BY created_at DESC"
             cursor.execute(sql)
-            results = cursor.fetchall()
-        return jsonify(results)
+            posts = cursor.fetchall()
+        return render_template('index.html', posts=posts)
     finally:
         connection.close()
 
