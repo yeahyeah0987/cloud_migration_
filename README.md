@@ -19,34 +19,34 @@
 
 ## 설정 및 실행 방법
 
-1. Python 패키지 설치
+**1. Python 패키지 설치**
    ```bash
    cd app
    pip3 install -r requirements.txt
 
-2. MySQL 데이터베이스 구성
+**2. MySQL 데이터베이스 구성**
 ```sql
    mysql -u root -p
    source scripts/create_tables.sql;
 
-3. 환경 변수 설정
+**3. 환경 변수 설정**
 ```bash
    export DB_HOST=localhost
    export DB_USER=root
    export DB_PASS=비밀번호
    export DB_NAME=bulletin_board
 
-4. Flask 애플리케이션 실행 (개발용)
+**4. Flask 애플리케이션 실행 (개발용)**
 ```bash
    cd app
    python3 flask_app.py
 
-5. Gunicorn + Nginx (운영용)
-Gunicorn 실행
+**5. Gunicorn + Nginx (운영용)**
+- Gunicorn 실행
 ```bash
    gunicorn --bind 127.0.0.1:8000 flask_app:app
 
-Nginx 설정
+- Nginx 설정
 /etc/nginx/sites-available/에 nginx.conf를 복사하고 심볼릭 링크 생성 후
 ```bash
    sudo nginx -t
